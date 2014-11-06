@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   end
 
   def get_10_tweets
+    since_last_update = Time.now - user.updated_at
+
     if self.tweets.count < 10
       puts "---------------load------------"
       tweets = $client.user_timeline(self.username).take(10)
@@ -22,7 +24,7 @@ class User < ActiveRecord::Base
       end
     else
       puts "---------------cache------------"
-      tweets = self.tweets.first(10)
+      tweets = self.tweets.last(10)
     end
     tweets
   end
