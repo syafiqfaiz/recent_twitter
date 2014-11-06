@@ -34,7 +34,7 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
 
-client = Twitter::Streaming::Client.new do |config|
+$client = Twitter::REST::Client.new do |config|
   config.consumer_key        = "K679OFUQmtPucB0ztkPG6VS6F"
   config.consumer_secret     = "w6YWCmOGfr0O8GSjR7z2Ep64PdAdLL10HnktnQVMZWeLN2wUGz"
   config.access_token        = "588198001-e1SekdiV4RJPjIgNojbeMS9FlK4dOys2qSjMk6o2"
