@@ -14,9 +14,15 @@ class User < ActiveRecord::Base
   end
 
   def get_10_tweets
-    tweets = $client.user_timeline(self.username).take(10)
-    tweets.each do |tweet|
-      self.tweets.create(text: tweet.text, user_id: self.id)
+    if self.tweets.count < 10
+      puts "---------------load------------"
+      tweets = $client.user_timeline(self.username).take(10)
+      tweets.each do |tweet|
+        self.tweets.create(text: tweet.text, user_id: self.id)
+      end
+    else
+      puts "---------------cache------------"
+      tweets = self.tweets.first(10)
     end
     tweets
   end
